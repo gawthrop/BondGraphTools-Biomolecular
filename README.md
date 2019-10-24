@@ -5,6 +5,6 @@ This repository contains
 3. PDF versions of the notebooks (.pdf). These contain a table of contents as well as citations.
 
 ## Examples
-- [ECR](ECR.pdf): Enzyme-catalysed Reactions
-- [Cooperative](Cooperative.pdf): Cooperative Enzyme-catalysed Reactions
-- [Phosphorylation](Phosphorylation.pdf): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
+- ECR.[ipynb](ECR.ipynb)|[pdf](ECR.pdf): Enzyme-catalysed Reactions
+- Cooperative.[ipynb](Cooperative.ipynb)|[pdf](Cooperative.pdf): Cooperative Enzyme-catalysed Reactions
+- Phosphorylation.[ipynb](Phosphorylation.ipynb)|[pdf](Phosphorylation.pdf): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
