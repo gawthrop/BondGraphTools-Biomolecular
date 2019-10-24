@@ -6,5 +6,5 @@ This repository contains
 
 ## Examples
 - [ECR](ECR.pdf): Enzyme-catalysed Reactions
-- Cooperative.ipynb: Cooperative Enzyme-catalysed Reactions
-- Phosphorylation.ipynb: Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
+- [Cooperative](Cooperative.pdf): Cooperative Enzyme-catalysed Reactions
+- [Phosphorylation](Phosphorylation.pdf): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
