@@ -7,4 +7,7 @@ dependencies:
   - pip
   - pip:
     - BondGraphTools
+    - svgpathtools
+    - lxml
+    - datetime
     
