@@ -521,7 +521,8 @@ def replaceRe(model,quiet=False):
                     reverse_comp = bond.head.component
                     ##print ("reverse:",reverse_comp)
                     bgt.disconnect(comp,reverse_comp)
-            print(comp.name,forward_comp.name,reverse_comp.name)              
+            print(comp.name)
+            print(forward_comp.name,reverse_comp.name)              
             ## Remove the Re
             name = comp.name;
             bgt.remove(model, comp)
