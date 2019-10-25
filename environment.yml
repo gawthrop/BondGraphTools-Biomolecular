@@ -6,7 +6,7 @@ dependencies:
   - sympy
   - pip
   - pip:
-    - BondGraphTools=0.3.7
+    - BondGraphTools==0.3.7
     - svgpathtools
     - lxml
     - datetime
