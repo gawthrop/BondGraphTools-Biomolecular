@@ -1,13 +1,14 @@
 # BondGraphTools-Biomolecular
 This repository contains
-1. Extensions to BondGraph tools to support stoichiometric analysis (.py)
-2. Tutorials and examples as jupyter notebooks (.ipynb)
-3. PDF versions of the notebooks (.pdf). These contain a table of contents as well as citations.
+- Extensions to BondGraph tools to support stoichiometric analysis (.py)
+- Tutorials and examples as jupyter notebooks (.ipynb)
+- PDF versions of the notebooks (.pdf). These contain a table of contents as well as citations.
+- Graphical bond graphs in SVG (scaleable vector graphics) format (.svg)
 
-## Run notebooks with Binder
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gawthrop/BondGraphTools-Biomolecular/master)
+## View notebooks with [nbviewer](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/)
+
+## Run notebooks with Binder [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/gawthrop/BondGraphTools-Biomolecular/master)
 ￼
-
 ## Examples
 - ECR.[ipynb](ECR.ipynb)|[pdf](ECR.pdf): Enzyme-catalysed Reactions
 - Cooperative.[ipynb](Cooperative.ipynb)|[pdf](Cooperative.pdf): Cooperative Enzyme-catalysed Reactions
