@@ -1332,9 +1332,9 @@ def sim(s,sc=None,X0=None,t=None,alpha=1,parameter=None,
                 X0[i] = parameter[str(par)]
                 used.append(str(par))
 
-    unused = list(set(par_keys) - set(used))
-    if len(unused)>0:
-        print('Unused parameters:',unused)
+        unused = list(set(par_keys) - set(used))
+        if len(unused)>0:
+            print('Unused parameters:',unused)
     
     if reduced:
         ## Extract transformation matrices
