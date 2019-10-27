@@ -1,0 +1,111 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-08-11 11:37:34 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="479pt" height="437pt"
+	viewBox="-1324 -975 7598 6930">
+<g fill="none">
+<!-- Text -->
+<text xml:space="preserve" x="1350" y="1440" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="1350" y="3690" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="3600" y="1440" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="3600" y="3690" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="450" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="540" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="4500" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="4590" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="4275" y="540" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E3</text>
+<!-- Text -->
+<text xml:space="preserve" x="4275" y="4590" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E4</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="4590" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E1</text>
+<!-- Text -->
+<text xml:space="preserve" x="-1125" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:A</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="-810" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:B</text>
+<!-- Text -->
+<text xml:space="preserve" x="6075" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:C</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="5940" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:D</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="1890" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r2</text>
+<!-- Text -->
+<text xml:space="preserve" x="2475" y="3240" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r4</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="540" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E2</text>
+<!-- Text -->
+<text xml:space="preserve" x="1890" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r1</text>
+<!-- Text -->
+<text xml:space="preserve" x="3060" y="2565" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r3</text>
+<!-- Line -->
+<polyline points=" 1575,1125 2250,450 2250,675"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 450,2250 1125,1575 1125,1800"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 1125,3375 450,2700 450,2925"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,4500 1575,3825 1575,4050"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2700,450 3375,1125 3150,1125"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3825,1575 4500,2250 4275,2250"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4500,2700 3825,3375 4050,3375"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3375,3825 2700,4500 2925,4500"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4275,2475 3375,2475 3600,2700"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 675,2475 1575,2475 1350,2700"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,4275 2475,3375 2700,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,675 2475,1575 2700,1350"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3825,1125 4275,675 4275,900"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" -675,2475 225,2475 0,2700"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,-675 2475,225 2700,0"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,4725 2475,5625 2700,5400"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 1125,1125 675,675 675,900"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,2475 5625,2475 5400,2700"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 1125,3825 675,4275 900,4275"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3825,3825 4275,4275 4050,4275"
+	stroke="#000000" stroke-width="15px"/>
+</g>
+</svg>

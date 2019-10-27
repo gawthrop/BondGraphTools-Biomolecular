@@ -1,0 +1,105 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2019-08-11 11:37:33 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="528pt" height="343pt"
+	viewBox="878 203 8369 5444">
+<g fill="none">
+<!-- Line -->
+<rect x="3825" y="585" width="900" height="180"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5400,1215 5850,1215"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3150,675 3825,675"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,675 6750,675"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5625,675 5625,1080"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5625,1215 5625,1575"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3150,1575 6750,1575"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Line -->
+<rect x="900" y="225" width="8325" height="5400" rx="105"
+	stroke="#ffd600" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5400,1080 5850,1080"
+	stroke="#0000ff" stroke-width="15px"/>
+<!-- Text -->
+<text xml:space="preserve" x="4230" y="450" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">r</text>
+<!-- Text -->
+<text xml:space="preserve" x="6030" y="1215" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">c</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="4995" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">Bond graph</text>
+<!-- Text -->
+<text xml:space="preserve" x="4950" y="2025" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">Schematic</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="4005" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">v</text>
+<!-- Text -->
+<text xml:space="preserve" x="3465" y="4140" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="4590" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">i</text>
+<!-- Text -->
+<text xml:space="preserve" x="3465" y="4725" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="6165" y="4590" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">i</text>
+<!-- Text -->
+<text xml:space="preserve" x="6255" y="4725" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">2</text>
+<!-- Text -->
+<text xml:space="preserve" x="6165" y="4005" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">v</text>
+<!-- Text -->
+<text xml:space="preserve" x="6255" y="4140" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">2</text>
+<!-- Text -->
+<text xml:space="preserve" x="6660" y="1170" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">v</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="1305" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">2</text>
+<!-- Text -->
+<text xml:space="preserve" x="6300" y="450" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">i</text>
+<!-- Text -->
+<text xml:space="preserve" x="6390" y="585" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">2</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="450" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">i</text>
+<!-- Text -->
+<text xml:space="preserve" x="3465" y="585" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="3060" y="1170" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">v</text>
+<!-- Text -->
+<text xml:space="preserve" x="3150" y="1305" fill="#0000ff" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">1</text>
+<!-- Line -->
+<polyline points=" 3152,4277 4052,4277 3827,4502"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4502,4277 5402,4277 5177,4502"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4276,4051 4276,3151 4501,3376"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5626,4051 5626,3151 5851,3376"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5852,4277 6752,4277 6527,4502"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Text -->
+<text xml:space="preserve" x="4277" y="4367" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="5627" y="4367" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="4276" y="2926" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">R:r</text>
+<!-- Text -->
+<text xml:space="preserve" x="5626" y="2926" fill="#000000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="middle">C:c</text>
+<!-- Text -->
+<text xml:space="preserve" x="6887" y="4367" fill="#ff0000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="start">Sf:i2</text>
+<!-- Text -->
+<text xml:space="preserve" x="3105" y="4365" fill="#ff0000" font-family="Times" font-style="normal" font-weight="normal" font-size="240" text-anchor="end">Se:v1</text>
+</g>
+</svg>
