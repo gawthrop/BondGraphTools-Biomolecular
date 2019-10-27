@@ -7,7 +7,7 @@ This repository contains
   (.svg)
   
 ## Examples
-Each of the following link displays the notebook using nbviewer. The
+Each of the following links displays the notebook using nbviewer. The
 notebook may be run using the binder link in the nbviewer menu.
 - [ECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/ECR.ipynb): Enzyme-catalysed Reactions
 - [Cooperative](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Cooperative.ipynb): Cooperative Enzyme-catalysed Reactions
