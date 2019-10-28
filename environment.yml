@@ -11,4 +11,5 @@ dependencies:
     - lxml
     - datetime
     - pandas
+    - xlrd
     
