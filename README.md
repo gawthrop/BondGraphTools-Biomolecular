@@ -12,6 +12,7 @@ notebook may be run using the binder link in the nbviewer menu.
 - [stoich](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/stoich.ipynb): The stoichiometric analysis module
 - [svgBondGraph](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/svgBondGraph.ipynb): The module for converting bond graphs in SVG (scaleable vector graphics) format to BondGraphTools format
 - [stoichBondGraph](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/stoichBondGraph.ipynb): The module for converting a stoichiometric system representation to BondGraphTools format
+- [Complexes](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Complexes.ipynb): Bond Graph Representation of Complexes: Bringing Graph Theory to Bond Graphs
 
 ## Examples
 Each of the following links displays the notebook using nbviewer. The
