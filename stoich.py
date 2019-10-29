@@ -6,6 +6,7 @@ import copy
 import scipy.integrate as sci
 import scipy.constants as con
 import matplotlib.pyplot as plt
+import networkx as nx
 
 def V_N(T_cent=37):
     """The V_N constant (=RT/F).
@@ -362,9 +363,23 @@ def N2ZD(Nf,Nr):
     ZT = ZT[I_u]
     Z = ZT.T                    # Z itself
 
+
+
     ## D contains the corresponding rows
     D = D[I_u]
 
+    # ## Zap zero columns of Z (!)
+    # j_zero = np.where(~Z.any(axis=0))[0]
+    # print(j_zero,len(j_zero))
+    # if len(j_zero)>0:
+    #     Z = np.delete(Z,j_zero,axis=1)
+
+    # ## Zap zero columns of D (!)
+    # j_zero = np.where(~D.any(axis=0))[0]
+    # print(j_zero,len(j_zero))
+    # if len(j_zero)>0:
+    #     D = np.delete(D,j_zero,axis=1)
+        
     return Z,D
 
 def get_comp_names(model,comp_type='C',n_ports=1,linear=[]):
@@ -695,7 +710,24 @@ def sprintp(s,printReac=False,chemformula=False,removeSingle=False):
         return reacOut
     else:
         return out
-        
+
+def prodStoichName(stoich,name):
+    """ Product of stoichiometry and a list of names """
+
+    (n,m) = stoich.shape
+
+    prods = []
+    for i in range(n):
+        prod = ""
+        for j in range(m):
+            spec = name[j].replace('__','.')
+            if stoich[i,j] != 0:
+                if (stoich[i,j]!=1):
+                    prod += str(stoich[i,j])+" "
+                prod += spec+" + "    
+        prods.append(prod[:-3])
+    return prods
+
 def sprintrl(s,align=True,chemformula=False,split=10,reaction=[],all=False,Phi=None,units=""):
     """ Print the chemical reactions in LaTeX.
         usepackage{chemformula}
@@ -1037,11 +1069,15 @@ def statify(s,chemostats=[],flowstats=[]):
     # print('i_reac:',i_reac)
 
     N = sc["N"]
-
+    Nf = sc["Nf"]
+    Nr = sc["Nr"]
+    
     ## Set rows of N to zero at chemostats
     for stat in chemostats:
         if stat in s['species']:
             N[i_spec[stat]] = 0
+            Nf[i_spec[stat]] = 0
+            Nr[i_spec[stat]] = 0
         else:
             print("Chemostat",stat,"is not a model species")
 
@@ -1049,6 +1085,8 @@ def statify(s,chemostats=[],flowstats=[]):
     for stat in flowstats:
         if stat in s['reaction']:
             N[:,i_reac[stat]] = 0
+            Nf[:,i_reac[stat]] = 0
+            Nr[:,i_reac[stat]] = 0
         else:
             print("Flowstat",stat,"is not a model species")
 
@@ -1060,8 +1098,12 @@ def statify(s,chemostats=[],flowstats=[]):
     L_xX,L_Xx,G_X,L_dX = xX(N,G)
     n_x = L_xX.shape[0]
 
+    ## Compute ZD decomposition
+    Z,D = N2ZD(Nf,Nr)
 
     sc["N"] = N
+    sc["Nf"] = Nf
+    sc["Nr"] = Nr
     sc["K"] = K
     sc["G"] = G
     sc["chemostats"] = chemostats
@@ -1069,7 +1111,8 @@ def statify(s,chemostats=[],flowstats=[]):
     sc["L_Xx"] = L_Xx
     sc["G_X"] = G_X
     sc["L_dX"] = L_dX
-    
+    sc["Z"] = Z
+    sc["D"] = D
     return sc
     
 def unify(s,commonSpecies=[],commonReactions=[]):
@@ -1485,6 +1528,47 @@ def plot(s,res,plotPhi=False,species=None,reaction=None,x=None,xlabel=None,xlim=
 
     plt.close()
 
+def draw(s):
+    """ Draw the digraph of the system
+    See P. Gawthrop and E. J. Crampin. 
+    Bond graph representation of chemical reaction networks. 
+    IEEE Transactions on NanoBioscience, 17(4):1--7, October 2018. 
+    Available at arXiv:1809.00449.
+    """
+
+    ## Create list of complexes (nodes)
+    comp = prodStoichName(s["Z"].T,s["species"])
+    #print(comp)
+
+    ## Create list of edges
+    D = s["D"]
+    nPath = D.shape[1]
+    edges = []
+    for iPath in range(nPath):
+        if len(np.nonzero(D[:,iPath]>0)[0])>0:
+            i_in = np.nonzero(D[:,iPath]<0)[0][0]
+            i_out = np.nonzero(D[:,iPath]>0)[0][0]
+            edge = (comp[i_in],comp[i_out])
+            edges.append(edge)
+
+    #print(edges)
+
+    ## Create digraph G
+    G = nx.DiGraph()
+    G.add_nodes_from(comp)
+    G.add_edges_from(edges)
+    cycles = len(list(nx.simple_cycles(G)))
+    if cycles==1:
+        Cycles = " cycle"
+    else:
+        Cycles = " cycles"
+        
+    title = s["name"]+" ("+str(cycles)+Cycles+")"
+    nx.draw_kamada_kawai(G,with_labels=True,font_weight='bold',
+                         node_size=3000,node_color='0.7',arrowsize=50)
+    plt.title(title)
+    
+    #print('Number of cycles =', len(list(nx.simple_cycles(G))))
 
 def model():
 
