@@ -1,0 +1,28 @@
+((*- extends 'article.tplx' -*))
+
+((* block author *))
+\title{Linearisation of Biomolecular Systems}
+\author{Peter Gawthrop (peter.gawthrop@unimelb.edu au)}
+((* endblock author *))
+
+((* block packages *))
+((( super() )))
+\usepackage[authoryear,round]{natbib}
+\renewcommand{\cite}[1]{\citep{#1}}  % Default to cites in parentheses
+\bibliographystyle{plainnat}
+\usepackage{chemformula}
+\usepackage{doi}
+((* endblock packages *))
+
+((* block predoc *))
+    ((( super() )))
+    ((* block tableofcontents *))
+    \tableofcontents
+    \newpage
+    ((* endblock tableofcontents *))
+((* endblock predoc *))
+
+
+((* block bibliography *))
+\bibliography{common}
+((* endblock bibliography *))
