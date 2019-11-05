@@ -4,16 +4,17 @@ import numpy as np
 import sympy as sp
 import copy
 import scipy.integrate as sci
-import scipy.constants as con
+import scipy.constants as const
 import matplotlib.pyplot as plt
 import networkx as nx
+import control as con
 
 def V_N(T_cent=37):
     """The V_N constant (=RT/F).
     """
     T = 273.15 + T_cent         # Human temperature deg K
-    F = con.physical_constants['Faraday constant'][0]
-    R = con.physical_constants['molar gas constant'][0]
+    F = const.physical_constants['Faraday constant'][0]
+    R = const.physical_constants['molar gas constant'][0]
     V_N = (R*T)/F
     return V_N
 
@@ -779,7 +780,7 @@ def sprintrl(s,align=True,chemformula=False,split=10,reaction=[],all=False,Phi=N
             Postfix = postfix
         else:
             Postfix = postfix + "&&" + "({:02.2f}{})".format(Phi[j][0],units)
-            #F = con.physical_constants['Faraday constant'][0]
+            #F = const.physical_constants['Faraday constant'][0]
             #Postfix += "\\;[" +"{:02.2f}".format(-Phi[j][0]*F/1000) + "]"
             
         for i in np.arange(0,n):
@@ -1239,6 +1240,159 @@ def path(s,sc,removeSingle=True,reducedState=True):
         sp['species'] = s['species']
             
     return (sp)
+
+def setParameter(s,parameter=None,X0=None,quiet=False):
+    """ 
+    Set up K,kappa, X0 and phi_0 using parameter dict 
+    Default as appropriate
+    """
+
+    ## Defaults
+    n_X = s["n_X"]
+    n_V = s["n_V"]
+    K = np.ones(n_X) 
+    kappa= np.ones(n_V)
+    phi0 = np.zeros(n_X)
+    if X0 is None:
+        X0 = np.ones(n_X)
+    
+    if parameter is not None:
+        used = []                         # remember parameters which are used
+        par_keys = list(parameter.keys()) # list of keys
+         ## Extract parameters
+        for i,par in enumerate(s["spec_par_name"]):
+            if par in par_keys:
+                if not quiet:
+                    print("Setting",par, "to", parameter[str(par)])
+                if i in s["i_lin"]:
+                    K[i] = parameter[str(par)]
+                else:
+                    K[i] = parameter[str(par)]
+                used.append(str(par))
+            else:
+                K[i] = 1
+                
+        for j,par in enumerate(s["reac_par_name"]):
+            if par in par_keys:
+                if not quiet:
+                    print("Setting",par, "to", parameter[str(par)])
+                if j in  s["j_lin"]:
+                    kappa[j] = parameter[str(par)]
+                else:
+                    kappa[j] = parameter[str(par)]
+                used.append(str(par))
+            else:
+                kappa[j] = 1
+
+        phiStr = "phi0_{0}" # Template for phi parameter name
+        for i,spec in enumerate(s["species"]):
+            par = phiStr.format(spec)
+            if par in par_keys:
+                if not quiet:
+                    print("Setting",par, "to", parameter[str(par)])
+                phi0[i] = parameter[str(par)]
+                used.append(str(par))
+            else:
+                phi0[i] = 0
+
+
+        X0Str = "X0_{0}" # Template for X0 (initial state) parameter name
+        for i,spec in enumerate(s["species"]):
+            par = X0Str.format(spec)
+            if par in par_keys:
+                if not quiet:
+                    print("Setting",par, "to", parameter[str(par)])
+                X0[i] = parameter[str(par)]
+                used.append(str(par))
+
+        unused = list(set(par_keys) - set(used))
+        if len(unused)>0:
+            print('Unused parameters:',unused)
+
+    return K,kappa,phi0,X0
+
+def lin(s,sc,model=None,x_ss=None,parameter=None,quiet=False):
+    """ Linearise the system about a steady state x_ss 
+    """
+
+    ## Set up parameters
+    K,kappa,phi0,x_ss = setParameter(s,parameter=parameter,X0=x_ss,quiet=quiet)
+    
+    ## Symbolic derivative of flow with respect to state dv/dx
+    dvdx,dvdx0 = dflow(s)
+    #print(dv)
+
+    ## Create symbolic argument list
+    arg = []
+
+    ## Species constants
+    species = s["species"]
+    for spec in species:
+        if model is None:
+            par = sp.symbols('K_'+spec)
+        else:
+            par = (model/spec).params['k']['value']
+        arg.append(par)
+
+    ## Reaction constants
+    reaction = s["reaction"]
+    for reac in reaction:
+        if model is None:
+            par = sp.symbols('kappa_'+reac)
+        else:
+            par = (model/reac).params['r']['value']
+        arg.append(par)
+        
+    ## Species states
+    x = vec(species)
+    arg += list(x)
+    #print(arg)
+
+
+    ## Create a numerical function
+    Cfun = sp.utilities.lambdify(arg,dvdx,"numpy")
+
+    # if K is None:
+    #     K = np.ones((s["n_X"],1))
+    #     K[s["n_X"]-1,0] = 1e-4
+    # #print(K)
+    # if kappa is None:
+    #     kappa = np.ones((s["n_V"],1))
+    #     #kappa[3] = 0.2
+    # #print(x_ss[:,0].tolist())
+    # #print( K[:,0].tolist())
+    
+    numArgs = tuple(K.flatten().tolist() + kappa.flatten().tolist()  + x_ss.flatten().tolist())
+    #print(numArgs)
+
+
+    C = Cfun(*numArgs)
+    #print(C)
+    A = s['N']@C
+    #print(A)
+
+    ## Extract the transformation to reduced form
+    L_xX = sc['L_xX']
+    L_Xx = sc['L_Xx']
+    G_X = sc['G_X']
+    L_dX = sc['L_dX']
+    ## Create reduced form
+    a = L_xX@A@L_Xx
+    #print(a)
+    b = L_xX@A@G_X@L_dX.T
+    #print(b)
+    c = C@L_Xx
+    #print(c)
+    d = C@G_X@L_dX.T
+    #print(d)
+
+    ## Update sc structure
+    updates = ["dvdx","dvdx0","A","C","a","b","c","d"]
+    for update in updates:
+        sc[update] = eval(update)
+
+    return con.ss(a,b,c,d)
+
     
 def sim_flow0(X,K,Z,D,i_lin,j_lin,alpha,kappa,phi0,reac_index,V_flow,t):
     KK = np.diag(K)
@@ -1298,7 +1452,7 @@ def sim_fun(t,x,s,sc,X0,K,kappa,alpha=1,
         
     return dx
 
-def sim(s,sc=None,X0=None,t=None,alpha=1,parameter=None,
+def sim(s,sc=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
         X_chemo=None,V_flow=None,reduced=True,phi0=None,quiet=True):
     
     n_X = s["n_X"]
@@ -1321,63 +1475,64 @@ def sim(s,sc=None,X0=None,t=None,alpha=1,parameter=None,
         t = np.linspace(0,1)
 
     n_x = sc["n_x"]
- 
-    K = np.ones(n_X) 
-    kappa= np.ones(n_V)
-    phi0 = np.zeros(n_X)
     
-    if parameter is not None:
-        used = []                         # remember parameters which are used
-        par_keys = list(parameter.keys()) # list of keys
-         ## Extract parameters
-        for i,par in enumerate(s["spec_par_name"]):
-            if par in par_keys:
-                if not quiet:
-                    print("Setting",par, "to", parameter[str(par)])
-                if i in s["i_lin"]:
-                    K[i] = parameter[str(par)]
-                else:
-                    K[i] = parameter[str(par)]
-                used.append(str(par))
-            else:
-                K[i] = 1
+ 
+    # K = np.ones(n_X) 
+    # kappa= np.ones(n_V)
+    # phi0 = np.zeros(n_X)
+    
+    # if parameter is not None:
+    #     used = []                         # remember parameters which are used
+    #     par_keys = list(parameter.keys()) # list of keys
+    #      ## Extract parameters
+    #     for i,par in enumerate(s["spec_par_name"]):
+    #         if par in par_keys:
+    #             if not quiet:
+    #                 print("Setting",par, "to", parameter[str(par)])
+    #             if i in s["i_lin"]:
+    #                 K[i] = parameter[str(par)]
+    #             else:
+    #                 K[i] = parameter[str(par)]
+    #             used.append(str(par))
+    #         else:
+    #             K[i] = 1
                 
-        for j,par in enumerate(s["reac_par_name"]):
-            if par in par_keys:
-                if not quiet:
-                    print("Setting",par, "to", parameter[str(par)])
-                if j in  s["j_lin"]:
-                    kappa[j] = parameter[str(par)]
-                else:
-                    kappa[j] = parameter[str(par)]
-                used.append(str(par))
-            else:
-                kappa[j] = 1
+    #     for j,par in enumerate(s["reac_par_name"]):
+    #         if par in par_keys:
+    #             if not quiet:
+    #                 print("Setting",par, "to", parameter[str(par)])
+    #             if j in  s["j_lin"]:
+    #                 kappa[j] = parameter[str(par)]
+    #             else:
+    #                 kappa[j] = parameter[str(par)]
+    #             used.append(str(par))
+    #         else:
+    #             kappa[j] = 1
 
-        phiStr = "phi0_{0}" # Template for phi parameter name
-        for i,spec in enumerate(s["species"]):
-            par = phiStr.format(spec)
-            if par in par_keys:
-                if not quiet:
-                    print("Setting",par, "to", parameter[str(par)])
-                phi0[i] = parameter[str(par)]
-                used.append(str(par))
-            else:
-                phi0[i] = 0
+    #     phiStr = "phi0_{0}" # Template for phi parameter name
+    #     for i,spec in enumerate(s["species"]):
+    #         par = phiStr.format(spec)
+    #         if par in par_keys:
+    #             if not quiet:
+    #                 print("Setting",par, "to", parameter[str(par)])
+    #             phi0[i] = parameter[str(par)]
+    #             used.append(str(par))
+    #         else:
+    #             phi0[i] = 0
 
 
-        X0Str = "X0_{0}" # Template for X0 (initial state) parameter name
-        for i,spec in enumerate(s["species"]):
-            par = X0Str.format(spec)
-            if par in par_keys:
-                if not quiet:
-                    print("Setting",par, "to", parameter[str(par)])
-                X0[i] = parameter[str(par)]
-                used.append(str(par))
+    #     X0Str = "X0_{0}" # Template for X0 (initial state) parameter name
+    #     for i,spec in enumerate(s["species"]):
+    #         par = X0Str.format(spec)
+    #         if par in par_keys:
+    #             if not quiet:
+    #                 print("Setting",par, "to", parameter[str(par)])
+    #             X0[i] = parameter[str(par)]
+    #             used.append(str(par))
 
-        unused = list(set(par_keys) - set(used))
-        if len(unused)>0:
-            print('Unused parameters:',unused)
+    #     unused = list(set(par_keys) - set(used))
+    #     if len(unused)>0:
+    #         print('Unused parameters:',unused)
     
     if reduced:
         ## Extract transformation matrices
@@ -1385,19 +1540,42 @@ def sim(s,sc=None,X0=None,t=None,alpha=1,parameter=None,
         L_Xx = sc["L_Xx"]
         G_X = sc["G_X"]
 
-        ## Create initial condition of reduced-order state
-        x0 = L_xX@X0
-    else:
-        x0 = X0
 
     ## Unit signal
     one = np.ones(t.shape)
 
+    ## Set up parameters (and modify initial state)
+    K,kappa,phi0,X0 = setParameter(s,parameter=parameter,X0=X0,quiet=quiet)
+
     if (n_x>0):
-        ## Simulate reduced-order system
-        x = sci.odeint(sim_fun,x0.T,t,
-                       args=(s,sc,X0,K,kappa,alpha,reduced,X_chemo,V_flow,phi0,),
-                       tfirst=True)
+        if linear is False:
+            
+            if reduced:
+                ## Create initial condition of reduced-order state
+                x0 = L_xX@X0
+            else:
+                x0 = X0
+
+            ## Simulate reduced-order system
+            x = sci.odeint(sim_fun,x0,t,
+                           args=(s,sc,X0,K,kappa,alpha,reduced,X_chemo,V_flow,phi0,),
+                           tfirst=True)
+        else:
+            ## Linearised system in Python Control Systems Library format
+            sys = lin(s,sc,x_ss=X0,parameter=parameter,quiet=quiet)
+
+            ## Chemostat inputs
+            if X_chemo is not None:
+                chemostats = sc['chemostats']
+                #print(chemostats)
+                U = np.zeros((len(chemostats),len(t)))
+                for i,chemo in enumerate(chemostats):
+                    if chemo in X_chemo.keys(): 
+                        U[i] = eval(X_chemo[chemo])
+                                  
+            t_out, yy ,xx = con.forced_response(sys,t,U=U)
+            #x = (xx + L_xX@X0).T
+            x = xx.T + (L_xX@X0).T
     else:
         x = 0
 
@@ -1422,12 +1600,15 @@ def sim(s,sc=None,X0=None,t=None,alpha=1,parameter=None,
     Phi = -phi@N
     
     ## Reconstruct flows.
-    Z = s["Z"]
-    D = s["D"]
-    
-    ##V = -D.T@np.exp(Z.T@Logn(X.T,i_lin))
-    V,V0 = sim_flow0(X.T,K.T,Z,D,i_lin,j_lin,alpha,kappa,phi0,reac_index,V_flow,t)
-    V = V.T
+    if not linear:
+        Z = s["Z"]
+        D = s["D"]
+        V,V0 = sim_flow0(X.T,K.T,Z,D,i_lin,j_lin,alpha,kappa,phi0,reac_index,V_flow,t)
+        V = V.T
+    else:
+        V = yy.T
+        if V0 is not None:
+            V += V0
 
     ## Results
     res = {};
