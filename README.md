@@ -24,3 +24,4 @@ notebook may be run using the binder link in the nbviewer menu.
 - [Phosphorylation](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Phosphorylation.ipynb): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
 - [EcoliCoreModel](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/EcoliCoreModel.ipynb): The Escherichia coli Core Model: Bond Graph Analysis
 - [Chloroplast](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Chloroplast.ipynb): The Chloroplast Electron Transport Chain
+- [Retroactivity](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Retroactivity.ipynb): Modules, Linearisation and Retroactivity
