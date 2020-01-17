@@ -131,7 +131,15 @@ def par_vec(model,names,par):
 
     return Par
 
-def flow(s,alpha=1):
+def flow(s,sf=None,alpha=1):
+
+    if sf is None:
+        ZZ = s["Z"]
+        DD = s["D"]
+    else:
+        ZZ = sf["Z"]
+        DD = sf["D"]
+        
     V_N = sp.symbols("V_N")
     species = s["species"]
     reaction = s["reaction"]
@@ -139,8 +147,8 @@ def flow(s,alpha=1):
     kappa = s["kappa"]
     i_lin = s["i_lin"]
     j_lin = s["j_lin"]
-    Z = sp.Matrix(s["Z"])/alpha
-    D = sp.Matrix(s["D"])
+    Z = sp.Matrix(ZZ)/alpha
+    D = sp.Matrix(DD)
     kx = hp(K_s,vec(species,"x"))
     Phi_c = Z.T*Log(kx,i_lin)   # Complex potentials
     v0 = -D.T*Exp(Phi_c) # Nonlinear flows (mass-action)
@@ -155,11 +163,11 @@ def flow(s,alpha=1):
     v = hp(kappa,v0)
     return v,v0
 
-def dflow(s):
+def dflow(s,sf=None):
     """ Find matrix for linearised system:
         dv is dv/dx; dv0 is without kappa
     """
-    v,v0 = flow(s)
+    v,v0 = flow(s,sf=sf)
     x = vec(s["species"])
     dv = sp.Matrix([])
     dv0 = sp.Matrix([])
@@ -265,7 +273,7 @@ def xX(N,G,symbolic=False,integer=False):
     res = NNT.rref();            # Use sympy rref
     RRT = res[0].T
     i_x = res[1]
-
+    ## print(i_x)
     n_x = len(i_x)
     i_d = tuple(np.setdiff1d(range(0,n_X),i_x))
     L_Xx = RRT[:,0:n_x];
@@ -294,7 +302,7 @@ def xX(N,G,symbolic=False,integer=False):
             L_Xx = np.array(L_Xx).astype(np.float)
             G_X = np.array(G_X).astype(np.float)
 
-    return L_xX, L_Xx, G_X, L_dX
+    return L_xX, L_Xx, G_X, L_dX, list(i_x)
 
 def N2ZD(Nf,Nr):
     """Decompose stoichiometric matrix N as N = ZD.
@@ -609,13 +617,14 @@ def sprintl(s,name="N",align=True):
     indent = "    "
     mname = {}
     mname["species"] = "X"
+    mname["species_x"] = "x"
     mname["reaction"] = "V"
     if align:
         str = "\\begin{align}\n"
     else:
         str = ""
         
-    if name in ["species","reaction"]:
+    if name in ["species","species_x","reaction"]:
         str =  str + mname[name] + "&= \\begin{pmatrix}\n"
         names = s[name]
         for nam in names:
@@ -834,11 +843,59 @@ def sprintml(s,align=True,chemformula=False,split=10):
     
     return sprintrl(ss,align=align,chemformula=chemformula,split=split)
 
-def stoich(model,chemostats=[],linear=[],quiet=False):
+def getStoich(model,linear=[],chemostats=[],quiet=False):
+
+    ## Swap Re components for ReSS
+    replaceRe(model,quiet=quiet)
+
+    ## Get lists of species and reactions
+    species,i_spec,spec_index,i_lin,spec_par_name = get_species(model,
+                                                                linear=linear)
+    reaction,i_reac,reac_index,j_lin,reac_par_name = get_reactions(model,
+                                                                      linear=linear)
+    sr = species + reaction
+    
+    ## Sizes
+    n_X = len(model.state_vars)
+    n_V2 = len(model.control_vars)
+    n_V = int(n_V2/2)
+
+    
+    ## Initialise integer arrays
+    Nf = np.zeros((n_X,n_V),'i')
+    Nr = np.zeros((n_X,n_V),'i')
+    
+    ## Find the stoichiometric  matrices
+    for i_species, cr in enumerate(model.constitutive_relations):
+        xi = "x_"+str(i_species)
+        #spec_name = model.state_vars[xi][0].name
+        spec_name = getName(model,xi)
+        #print(xi,':',spec_name)
+        if spec_name in chemostats:
+            continue
+
+        for j, cv in enumerate(model.control_vars):
+            is_f = (j % 2) ==0
+            j_reac = int(j/2);
+            if is_f:
+                n = -sp.diff(cr,cv)
+                #print(i_species, j_reac, n)
+                Nf[i_species][j_reac] = n
+            else:
+                n = -sp.diff(cr,cv)
+                #print(i_species, j_reac, n)
+                Nr[i_species][j_reac] = n
+
+    ## Compute the stoichiometric matrix 
+    N = Nr - Nf
+
+    return N,Nf,Nr
+
+def stoich(model,chemostats=[],linear=[],N=None,K=None,G=None,quiet=False):
     """Return stoichometric information from a bond-graph model.
 
     Parameters:
-    model : BondGraphTools model -- bond graoh of chemical reaction network
+    model : BondGraphTools model -- bond graph of chemical reaction network
     chemostats : list -- list of chemostats
 
     See:
@@ -929,89 +986,29 @@ def stoich(model,chemostats=[],linear=[],quiet=False):
     ['r1', 'r2']
     """
     
+    ## Extract stoichiometric matrix
+    if N is None:
+        ## Extract stoichiometric matrix N from model
+        if not quiet:
+            print("Computing N ...")
+        N,Nf,Nr = getStoich(model,linear=linear,chemostats=chemostats,quiet=quiet)
+        if not quiet:
+            print("Done.")
+    else:
+        ## Extract forward and reverse from N
+        Nf = -((N<0)*N)
+        Nr = (N>0)*N
 
-   ## Swap Re components for ReSS
-    replaceRe(model,quiet=quiet)
+    ## Number of states and flows
+    n_X = N.shape[0]
+    n_V = N.shape[1]
 
     ## Get lists of species and reactions
     species,i_spec,spec_index,i_lin,spec_par_name = get_species(model,
                                                                 linear=linear)
     reaction,i_reac,reac_index,j_lin,reac_par_name = get_reactions(model,
                                                                       linear=linear)
-    sr = species + reaction
     
-    ## Swap Re components for ReSS
-    # components = copy.copy(model.components) # Need to use original version
-    # for i in i_reac:
-    #     comp = components[i]
-    #     name = comp.name
-    #     ##print("Swapping Re:" + name, "for ReSS")
-
-    #     ## Find what it is connected to, and disconnect
-    #     for bond in model.bonds:
-                
-    #         ## Forward connection
-    #         if bond.head.component is comp:
-    #             forward_comp = bond.tail.component
-    #             ##print("forward:", forward_comp, bond.tail)
-    #             bgt.disconnect(forward_comp,comp)
-                    
-    #         ## Reverse connection
-    #         if bond.tail.component is comp:
-    #             reverse_comp = bond.head.component
-    #             ##print ("reverse:",reverse_comp)
-    #             bgt.disconnect(comp,reverse_comp)
-                        
-    #     ## Remove the Re
-    #     name = comp.name;
-    #     bgt.remove(model, comp)
-
-    #     ## Add the new ReSS
-    #     new_comp = ReSS(name);
-    #     bgt.add(model,new_comp);
-        
-    #     ## and reconnect
-    #     bgt.connect(forward_comp,(new_comp,0))
-    #     bgt.connect((new_comp,1),reverse_comp)     
- 
-
-    # print(model.state_vars)
-    # print(model.control_vars)
-    ## Sizes
-    n_X = len(model.state_vars)
-    n_V2 = len(model.control_vars)
-    n_V = int(n_V2/2)
-
-    
-    ## Initialise integer arrays
-    Nf = np.zeros((n_X,n_V),'i')
-    Nr = np.zeros((n_X,n_V),'i')
-    
-    ## Find the stoichiometric  matrices
-    for i_species, cr in enumerate(model.constitutive_relations):
-        xi = "x_"+str(i_species)
-        #spec_name = model.state_vars[xi][0].name
-        spec_name = getName(model,xi)
-        #print(xi,':',spec_name)
-        if spec_name in chemostats:
-            continue
-
-        for j, cv in enumerate(model.control_vars):
-            is_f = (j % 2) ==0
-            j_reac = int(j/2);
-            if is_f:
-                n = -sp.diff(cr,cv)
-                #print(i_species, j_reac, n)
-                Nf[i_species][j_reac] = n
-            else:
-                n = -sp.diff(cr,cv)
-                #print(i_species, j_reac, n)
-                Nr[i_species][j_reac] = n
-
-    ## Compute the stoichiometic matrix 
-    N = Nr - Nf
-    n_X = N.shape[0]
-    n_V = N.shape[1]
 
     ## Compute the structure matrix
     S = np.block([[np.zeros((n_X,n_X)), N], [-N.T, np.zeros((n_V,n_V))]])
@@ -1020,14 +1017,25 @@ def stoich(model,chemostats=[],linear=[],quiet=False):
     Nfr = np.block([Nf,Nr])
     
     ## Compute the null spaces
-    K = inull(N,integer=True)
-    G = inull(N.T,integer=True).T
+    if K is None:
+        if not quiet:
+            print("Computing K ...")
+        K = inull(N,integer=True)
+        if not quiet:
+            print("Done.")
+
+    if G is None:
+        if not quiet: 
+            print("Computing G ...")
+        G = inull(N.T,integer=True).T
+        if not quiet:
+            print("Done.")
 
     ## Convert to complex form
     Z,D = N2ZD(Nf,Nr)
 
     ## Matrices to transform between full state X and reduced state x
-    L_xX,L_Xx,G_X,L_dX = xX(N,G)
+    L_xX,L_Xx,G_X,L_dX,i_x = xX(N,G)
     n_x = L_xX.shape[0]
 
     ## Species gain parameter vector
@@ -1047,7 +1055,7 @@ def stoich(model,chemostats=[],linear=[],quiet=False):
              "K":K, "G":G,
              "Z":Z, "D":D,
              "n_X":n_X, "n_x":n_x, "n_V":n_V,
-             "i_lin":i_lin, "j_lin":j_lin,
+             "i_lin":i_lin, "j_lin":j_lin, "i_x":i_x,
              "S":S,
              "L_xX":L_xX, "L_Xx":L_Xx, "G_X":G_X, "L_dX":L_dX,
              "K_s":K_s, "kappa":kappa,
@@ -1058,9 +1066,10 @@ def stoich(model,chemostats=[],linear=[],quiet=False):
              "reac_index":reac_index,
              "spec_par_name":spec_par_name,
              "reac_par_name":reac_par_name,
+             "species_x": [species[i] for i in i_x]
     }
 
-def statify(s,chemostats=[],flowstats=[]):
+def statify(s,chemostats=[],flowstats=[],K=None,G=None):
     """ Apply chemostats and flowstats to s
     """
     sc = copy.deepcopy(s)       # Take a copy - leave s alone
@@ -1089,14 +1098,16 @@ def statify(s,chemostats=[],flowstats=[]):
             Nf[:,i_reac[stat]] = 0
             Nr[:,i_reac[stat]] = 0
         else:
-            print("Flowstat",stat,"is not a model species")
+            print("Flowstat",stat,"is not a model reaction")
 
     ## Compute the null spaces
-    K = inull(N,integer=True)
-    G = inull(N.T,integer=True).T
+    if K is None:
+        K = inull(N,integer=True)
+    if G is None:    
+        G = inull(N.T,integer=True).T
     
     ## Matrices to transform between full state X and reduced state x
-    L_xX,L_Xx,G_X,L_dX = xX(N,G)
+    L_xX,L_Xx,G_X,L_dX,i_x = xX(N,G)
     n_x = L_xX.shape[0]
 
     ## Compute ZD decomposition
@@ -1108,12 +1119,17 @@ def statify(s,chemostats=[],flowstats=[]):
     sc["K"] = K
     sc["G"] = G
     sc["chemostats"] = chemostats
+    sc["flowstats"] = flowstats
     sc["L_xX"] = L_xX
     sc["L_Xx"] = L_Xx
     sc["G_X"] = G_X
     sc["L_dX"] = L_dX
     sc["Z"] = Z
     sc["D"] = D
+    sc["n_x"] = n_x
+    sc["i_x"] = i_x
+    species = s["species"]
+    sc["species_x"] = [species[i] for i in i_x]
     return sc
     
 def unify(s,commonSpecies=[],commonReactions=[]):
@@ -1311,15 +1327,24 @@ def setParameter(s,parameter=None,X0=None,quiet=False):
 
     return K,kappa,phi0,X0
 
-def lin(s,sc,model=None,x_ss=None,parameter=None,quiet=False):
-    """ Linearise the system about a steady state x_ss 
+def getTrans(longList,shortList):
+    """ 
+    Get transformation matrix converting:
+    vector v_L corresponding to longList to
+    vector v_S corresponding to shortList
+    where all items in shortList also belong to longList
+    """
+    return np.eye(len(longList))[[longList.index(item) for item in shortList]]
+
+def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V'):
+    """ Linearise the system about a steady state x_ss
     """
 
     ## Set up parameters
     K,kappa,phi0,x_ss = setParameter(s,parameter=parameter,X0=x_ss,quiet=quiet)
     
     ## Symbolic derivative of flow with respect to state dv/dx
-    dvdx,dvdx0 = dflow(s)
+    dvdx,dvdx0 = dflow(s,sf=sf)
     #print(dv)
 
     ## Create symbolic argument list
@@ -1352,23 +1377,14 @@ def lin(s,sc,model=None,x_ss=None,parameter=None,quiet=False):
     ## Create a numerical function
     Cfun = sp.utilities.lambdify(arg,dvdx,"numpy")
 
-    # if K is None:
-    #     K = np.ones((s["n_X"],1))
-    #     K[s["n_X"]-1,0] = 1e-4
-    # #print(K)
-    # if kappa is None:
-    #     kappa = np.ones((s["n_V"],1))
-    #     #kappa[3] = 0.2
-    # #print(x_ss[:,0].tolist())
-    # #print( K[:,0].tolist())
-    
     numArgs = tuple(K.flatten().tolist() + kappa.flatten().tolist()  + x_ss.flatten().tolist())
     #print(numArgs)
 
 
     C = Cfun(*numArgs)
     #print(C)
-    A = s['N']@C
+    N = s['N']
+    A = N@C
     #print(A)
 
     ## Extract the transformation to reduced form
@@ -1376,14 +1392,60 @@ def lin(s,sc,model=None,x_ss=None,parameter=None,quiet=False):
     L_Xx = sc['L_Xx']
     G_X = sc['G_X']
     L_dX = sc['L_dX']
+
+    ## Find the chemostat transformation
+    n_X = sc['n_X']
+    chemostats = sc["chemostats"]
+    species = sc["species"]
+    L_cX = getTrans(species,chemostats)
+
+    ## Find the flowstat transformation
+    n_V = s['n_V']
+    N = s['N']
+    if sf is None:
+        flowstats = []
+        N_fd = s['N']
+    else:
+        flowstats = sf["flowstats"]
+        N_fd = sf['N']
+        
+    reactions = s["reaction"]
+    L_fX = getTrans(reactions,flowstats)
+    #L_fX = np.eye(n_V)[[reactions.index(f) for f in flowstats]]
+    #print(L_fX)
+
+    if outvar in ['V']:         # Reaction Flows
+       CC = C
+       n_y = n_V
+    elif outvar in ['dX']:      # State flows
+        CC = A
+        n_y = n_X
+    elif outvar in ['phi']:     # Species potential
+        CC = np.eye(n_X)
+        n_y = n_X
+    elif outvar in ['Phi']: # Reaction potential
+        CC = -N.T
+        n_y = n_V
+    elif outvar in ['port']:
+        CC = L_cX@A
+        n_y = len(chemostats)
+    else:
+        print('lin(): outvar',outvar,'is not recognised')
+        
+        
     ## Create reduced form
     a = L_xX@A@L_Xx
     #print(a)
-    b = L_xX@A@G_X@L_dX.T
+    b_c = L_xX@A@G_X@L_cX.T     # Chemostats
+    b_f = L_xX@N@L_fX.T         # Flowstats
+    #print(b_f)
+    b = np.hstack((b_c,b_f))
     #print(b)
-    c = C@L_Xx
+    c = CC@L_Xx
     #print(c)
-    d = C@G_X@L_dX.T
+    d_c =  CC@G_X@L_cX.T
+    d_f = np.zeros((n_y,len(flowstats)))
+    d = np.hstack((d_c,d_f))
     #print(d)
 
     ## Update sc structure
@@ -1452,7 +1514,7 @@ def sim_fun(t,x,s,sc,X0,K,kappa,alpha=1,
         
     return dx
 
-def sim(s,sc=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
+def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
         X_chemo=None,V_flow=None,reduced=True,phi0=None,quiet=True):
     
     n_X = s["n_X"]
@@ -1465,6 +1527,9 @@ def sim(s,sc=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
     
     if sc is None:
         sc = s
+
+    if sf is None:
+        sf = s
         
     if X0 is None:
         X0 = np.ones(n_X)
@@ -1558,7 +1623,7 @@ def sim(s,sc=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
 
             ## Simulate reduced-order system
             x = sci.odeint(sim_fun,x0,t,
-                           args=(s,sc,X0,K,kappa,alpha,reduced,X_chemo,V_flow,phi0,),
+                           args=(sf,sc,X0,K,kappa,alpha,reduced,X_chemo,V_flow,phi0,),
                            tfirst=True)
         else:
             ## Linearised system in Python Control Systems Library format
@@ -1601,8 +1666,8 @@ def sim(s,sc=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
     
     ## Reconstruct flows.
     if not linear:
-        Z = s["Z"]
-        D = s["D"]
+        Z = sf["Z"]
+        D = sf["D"]
         V,V0 = sim_flow0(X.T,K.T,Z,D,i_lin,j_lin,alpha,kappa,phi0,reac_index,V_flow,t)
         V = V.T
     else:

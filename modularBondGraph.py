@@ -100,9 +100,29 @@ def create(name,comp,chain,quiet=False):
     exec(name+" = copy.deepcopy(comp)")
     exec(name+".name = '"+name+"'")
     exec("chain.add("+name+")")
+
+def rename_instance(model,i,inport,outport,quiet=False):
+    """Rename all non-port components in an instance indexed by i
+    """
+
+    comps = []
+    for comp in model.components:
+        if comp.metamodel in ['C','R']:
+            name = comp.name
+            comps.append(name)
+    #print(comps)
+    renames = {}
+    for comp in comps:
+        renames[comp] = comp+'_'+str(i)
+    #print(renames)
+    rename(model,renames,quiet=quiet)
     
 def chain(model,inport='in',outport='out',N=2,quiet=False):
     """ Concatenate N instances of model via ports inport and outport
+        The ports are represented in model as Ce components
+        Ce:in in the first link of the chain and Ce:out in the last link remain as Ce components
+        The method unifies Ce:out of link i and Ce:in of link i+1 by replacing them by ports 
+        and connecting them to a new Ce component with associated zero junction.
     """
 
     intname = "IS"
@@ -131,7 +151,9 @@ def chain(model,inport='in',outport='out',N=2,quiet=False):
     for i in range(N):
         ## Create the components
         cname = model.name+str(i)
-        create(cname,model,chain,quiet=quiet)
+        Model = copy.deepcopy(model)
+        rename_instance(Model,i,inport,outport,quiet=quiet)
+        create(cname,Model,chain,quiet=quiet)
 
         if i>0:
             ## Create the intermediate species
