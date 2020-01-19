@@ -14,4 +14,3 @@ dependencies:
     - xlrd
     - networkx
     - control
-    - slycot
