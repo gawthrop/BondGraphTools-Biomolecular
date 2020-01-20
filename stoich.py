@@ -652,7 +652,7 @@ def sprintvl(s,alpha=1,align=True):
     else:
         str = ""
 
-    v,v0 = flow(s,alpha)
+    v,v0 = flow(s,alpha=alpha)
     V = vec(s["reaction"],"v")
     for i,v_i in enumerate(v):
         str += sp.latex(V[i])
