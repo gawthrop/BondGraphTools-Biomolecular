@@ -14,3 +14,6 @@ dependencies:
     - xlrd
     - networkx
     - control
+    - cobra
+    - cobra.test
+    - cobra.util
