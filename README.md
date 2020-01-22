@@ -22,6 +22,6 @@ notebook may be run using the binder link in the nbviewer menu.
 - [ECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/ECR.ipynb): Enzyme-catalysed Reactions
 - [Cooperative](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Cooperative.ipynb): Cooperative Enzyme-catalysed Reactions
 - [Phosphorylation](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Phosphorylation.ipynb): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
-- [EcoliCoreModel](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/EcoliCoreModel.ipynb): The Escherichia coli Core Model: Bond Graph Analysis
+- [EcoliCoreModel](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/EcoliCoreModel.ipynb): The Escherichia coli Core Model: Modular Bond Graph Analysis
 - [Chloroplast](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Chloroplast.ipynb): The Chloroplast Electron Transport Chain
 - [Retroactivity](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Retroactivity.ipynb): Modules, Linearisation and Retroactivity
