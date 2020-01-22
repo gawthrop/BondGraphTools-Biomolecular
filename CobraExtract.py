@@ -46,12 +46,12 @@ def remove(s,Rem=[]):
         s = s.replace(rem,'')
     return s
 
-def extract(filename='textbook',name=None,Remove=[],Ignore=[],quiet=False):
+def extract(cobraname='textbook',name=None,Remove=[],Ignore=[],negReaction=[],quiet=False):
 
-    print('Extracting stoichiometric matrix from:',filename)
+    print('Extracting stoichiometric matrix from:',cobraname)
 
     ## Get the Cobra model
-    model = cobra.test.create_test_model(filename)
+    model = cobra.test.create_test_model(cobraname)
 
     ## Set the bgt name
     if name is None:
@@ -129,7 +129,7 @@ def extract(filename='textbook',name=None,Remove=[],Ignore=[],quiet=False):
     s['chemostats'] = chemostats
     s['name'] = name
 
-    return Integer(s)
+    return Integer(s,negReaction=negReaction)
 
 def getSpecies(s,reaction):
     """ Extract the species associated with a list of reactions
