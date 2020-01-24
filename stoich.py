@@ -738,7 +738,7 @@ def prodStoichName(stoich,name):
         prods.append(prod[:-3])
     return prods
 
-def sprintrl(s,align=True,chemformula=False,split=10,reaction=[],all=False,Phi=None,units=""):
+def sprintrl(s,align=True,chemformula=False,split=10,reaction=[],all=False,Phi=None,units="",showMu=False):
     """ Print the chemical reactions in LaTeX.
         usepackage{chemformula}
     """
@@ -789,8 +789,9 @@ def sprintrl(s,align=True,chemformula=False,split=10,reaction=[],all=False,Phi=N
             Postfix = postfix
         else:
             Postfix = postfix + "&&" + "({:02.2f}{})".format(Phi[j][0],units)
-            #F = const.physical_constants['Faraday constant'][0]
-            #Postfix += "\\;[" +"{:02.2f}".format(-Phi[j][0]*F/1000) + "]"
+            if showMu:
+                F = const.physical_constants['Faraday constant'][0]
+                Postfix += "\\;[" +"{:02.2f}".format(-Phi[j][0]*F/1000) + "]"
             
         for i in np.arange(0,n):
             spec = s["species"][i].replace('__','.')
