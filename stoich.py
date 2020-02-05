@@ -1421,7 +1421,11 @@ def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V')
     elif outvar in ['dX']:      # State flows
         CC = A
         n_y = n_X
+    elif outvar in ['X']:     # Species 
+        CC = np.eye(n_X)
+        n_y = n_X
     elif outvar in ['phi']:     # Species potential
+        print('lin(): outvar',outvar,'is not implemented yet - using X instead')
         CC = np.eye(n_X)
         n_y = n_X
     elif outvar in ['Phi']: # Reaction potential
@@ -1687,7 +1691,7 @@ def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=
     
     return res
 
-def plot(s,res,plotPhi=False,species=None,reaction=None,x=None,xlabel=None,xlim=None,ylim=None,i0=None,filename=None):
+def plot(s,res,plotPhi=False,x_ss=None,v_ss=None,species=None,reaction=None,x=None,xlabel=None,xlim=None,ylim=None,i0=None,filename=None):
     """ Plot results of sim()
     
     Parameter:
@@ -1728,6 +1732,10 @@ def plot(s,res,plotPhi=False,species=None,reaction=None,x=None,xlabel=None,xlim=
     else:
         I = [s['spec_index'][spec] for spec in species]
         X = copy.copy(res[specSym][-i1:,I])
+        if x_ss is not None:
+            X = X - x_ss[I]
+            specSym = '$X-X_ss$'
+            
         Species = [s["species"][i] for i in I]   
 
     if reaction is None:
@@ -1736,6 +1744,9 @@ def plot(s,res,plotPhi=False,species=None,reaction=None,x=None,xlabel=None,xlim=
     else:
         I = [s['reac_index'][reac] for reac in reaction]
         V = copy.copy(res[reacSym][-i1:,I])
+        if v_ss is not None:
+            V = V - v_ss[I]
+            reacSym = '$V-V_ss$'
         Reaction = [s["reaction"][i] for i in I]
 
     ## Clear previous plots
