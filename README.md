@@ -27,5 +27,7 @@ notebook may be run using the binder link in the nbviewer menu.
 of Glycolysis and Pentose Phosphate Pathways
 - [Chloroplast](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Chloroplast.ipynb): The Chloroplast Electron Transport Chain
 - [Retroactivity](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Retroactivity.ipynb): Modules, Linearisation and Retroactivity
+
+## In progress
 - [fECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/fECR.ipynb): Enzyme-catalysed reaction: analysis as a feedback control actuator.
-30
+- [Allosteric](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Allosteric.ipynb): Allosteric inhibition as a control actuator: loop-gain analysis.
