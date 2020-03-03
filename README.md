@@ -31,3 +31,5 @@ of Glycolysis and Pentose Phosphate Pathways
 ## In progress
 - [fECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/fECR.ipynb): Enzyme-catalysed reaction: analysis as a feedback control actuator.
 - [Allosteric](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Allosteric.ipynb): Allosteric inhibition as a control actuator: loop-gain analysis.
+- [modularAllosteric](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/modularAllosteric.ipynb): Allosteric inhibition as a control actuator - modular
+approach: passive and active feedback.
