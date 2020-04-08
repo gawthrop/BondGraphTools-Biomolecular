@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2020-04-06 09:18:34 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="403pt" height="130pt"
+	viewBox="221 210 6392 2058">
+<g fill="none">
+<!-- Text -->
+<text xml:space="preserve" x="675" y="1890" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="675" y="450" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E0</text>
+<!-- Text -->
+<text xml:space="preserve" x="2025" y="1890" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="4725" y="1890" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="6075" y="1890" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6075" y="450" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:E00</text>
+<!-- Text -->
+<g transform="translate(3285,1800) rotate(-270)" >
+<text xml:space="preserve" x="0" y="0" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:rm</text>
+</g><!-- Text -->
+<text xml:space="preserve" x="4725" y="450" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:Act</text>
+<!-- Text -->
+<text xml:space="preserve" x="2025" y="450" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Ce:Inh</text>
+<!-- Line -->
+<polyline points=" 675,1575 675,675 900,900"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6075,1575 6075,675 6300,900"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 900,1800 1800,1800 1575,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,1800 3150,1800 2925,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3600,1800 4500,1800 4275,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4950,1800 5850,1800 5625,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,1575 4725,675 4950,900"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2025,675 2025,1575 2250,1350"
+	stroke="#000000" stroke-width="15px"/>
+</g>
+</svg>
