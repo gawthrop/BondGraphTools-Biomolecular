@@ -21,6 +21,7 @@ Each of the following links displays the notebook using nbviewer. The
 notebook may be run using the binder link in the nbviewer menu.
 - [ECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/ECR.ipynb): Enzyme-catalysed Reactions
 - [Cooperative](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Cooperative.ipynb): Cooperative Enzyme-catalysed Reactions
+- [modulatedCooperative](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/modulatedCooperative.ipynb): Modulated Cooperative Enzyme-catalysed Reactions
 - [Phosphorylation](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Phosphorylation.ipynb): Phosphorylation, Dephosphorylation and the Mitogen-activated Protein Kinase (MAPK) cascade
 - [EcoliCoreModel](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/EcoliCoreModel.ipynb): The Escherichia coli Core Model: Modular Bond Graph Analysis
 - [EcoliCoreModelEnergy](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/EcoliCoreModelEnergy.ipynb): The Escherichia coli Core Model: Modular Energetic Bond Graph Analysis
