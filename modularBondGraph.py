@@ -260,6 +260,28 @@ def rename(module,names,quiet=False):
             bgt.disconnect(keyJun,keyComp)
             module.remove(keyComp)
 
+def renameSub(module,portList=[],quiet=True):
+    """ Rename all non-port components in module to moduleName_compName"""
+
+    modName = module.name
+    if not quiet:
+        print("Renaming components in:",modName)
+
+    renames = {}
+    for comp in module.components:
+        if comp.metamodel in ['R','C']:
+            compName = comp.name
+            if compName not in portList:
+                if not quiet:
+                    print("Renaming component:",compName,'('+comp.metamodel+')')
+
+                renames[compName] = modName+'_'+compName
+
+    rename(module,renames,quiet=quiet)
+                
+    
+    
+
 def changeStoich(module,names,quiet=False):
     """ Changes Ce stoichiometry  within module according to dict names
     """
