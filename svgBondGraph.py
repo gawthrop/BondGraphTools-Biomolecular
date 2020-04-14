@@ -215,7 +215,7 @@ def makeBond(headList,tailList):
 
     return strBond
 
-def makeSubsystem(compType,compName,compPort):
+def makeSubsystem(compType,compName,compPort,rename=True):
     """ Create subsystem in BondGraphTools format
     """
 
@@ -228,19 +228,24 @@ def makeSubsystem(compType,compName,compPort):
               "{0}model.add({2})\n"
          )
     compStr = "{0}:{1}"
+    renameStr = "{0}mbg.renameSub({1},portList={2})\n"
     exposeStr = "{0}bgt.expose({1} / '{2}','{2}')\n"
 
     strSub = subStr.format(indent,compType,compName)
 
+    ports = []
     for port,sysName in compPort.items():
         if compStr.format(compType,compName) in sysName:
             strSub += exposeStr.format(indent,compName,port)
+            ports.append(port)
+            
+    if rename:
+        strSub += renameStr.format(indent,compName,ports)
 
-    
     #print(strSub)
     return strSub
 
-def makeComponents(compList,compPort,convertR=False,convertCe=False):
+def makeComponents(compList,compPort,convertR=False,convertCe=False,rename=True):
     """Create components in BondGraphTools format
     """
     indent = "    "
@@ -347,7 +352,7 @@ def makeComponents(compList,compPort,convertR=False,convertCe=False):
             strComp = strComp+SfStr.format(indent,compName)
         else:
             #print("UNKNOWN:",compType+":"+compName)
-            strComp += makeSubsystem(compType,compName,compPort)
+            strComp += makeSubsystem(compType,compName,compPort,rename=rename)
             
     # strComp = (strComp+"\n"+indent+"## Component list\n"
     #            +indent+"components = (\n"
@@ -421,7 +426,7 @@ def ConvertCe(CeList,headList,tailList,quiet=False):
              
     return headList,tailList,compList
 
-def model(svg,convertR=False,convertCe=False,quiet=False):
+def model(svg,convertR=False,convertCe=False,quiet=False,rename=True):
     """ Converts the SVG graphical BG to the BondGraphTools computational BG
     """
     
@@ -433,6 +438,7 @@ def model(svg,convertR=False,convertCe=False,quiet=False):
     f = open(filename,'w')
 
     header = ("import BondGraphTools as bgt\n"
+              "import modularBondGraph as mbg\n"
               "import sympy as sp\n\n"
               "def model():\n"
               "{0}{3} Acausal bond graph {1}_abg.py\n"
