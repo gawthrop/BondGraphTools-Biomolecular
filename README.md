@@ -34,3 +34,4 @@ of Glycolysis and Pentose Phosphate Pathways
 - [Allosteric](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Allosteric.ipynb): Allosteric inhibition as a control actuator: loop-gain analysis.
 - [modularAllosteric](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/modularAllosteric.ipynb): Allosteric inhibition as a control actuator - modular
 approach: passive and active feedback.
+- [Cyclic Flow Modulation (CFM)](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/CyclicFlowModulation.ipynb): control of metabolism based on miomelecular cycles.
