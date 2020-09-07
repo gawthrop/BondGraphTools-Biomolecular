@@ -28,6 +28,8 @@ notebook may be run using the binder link in the nbviewer menu.
 of Glycolysis and Pentose Phosphate Pathways
 - [Chloroplast](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Chloroplast.ipynb): The Chloroplast Electron Transport Chain
 - [Retroactivity](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Retroactivity.ipynb): Modules, Linearisation and Retroactivity
+- [ElectroChemical](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/ElectroChemical.ipynb): 
+Electrochemical Modelling and Ion Channels
 - [Redox](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Redox.ipynb): 
 Redox reactions and Proton Pumps
 - [SGLT](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/SGLT.ipynb): Sodium Glucose Symporter
