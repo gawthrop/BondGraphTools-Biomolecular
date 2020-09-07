@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2020-08-05 09:31:04 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="257pt" height="371pt"
+	viewBox="4938 -912 4074 5874">
+<g fill="none">
+<!-- Line -->
+<rect x="4950" y="-900" width="4050" height="5850" rx="105"
+	stroke="#ffd600" stroke-width="8px"/>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="-585" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:E2</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="765" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="3465" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="4815" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:E1</text>
+<!-- Text -->
+<text xml:space="preserve" x="8100" y="2475" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[E1]</text>
+<!-- Text -->
+<text xml:space="preserve" x="8100" y="1800" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[E2]</text>
+<!-- Text -->
+<text xml:space="preserve" x="5625" y="2115" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Redox:rr</text>
+<!-- Text -->
+<text xml:space="preserve" x="7875" y="2115" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">ProtonPump:pp</text>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="1800" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[E2]</text>
+<!-- Text -->
+<text xml:space="preserve" x="5400" y="2475" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[E1]</text>
+<!-- Line -->
+<polyline points=" 6750,450 6750,-450 6975,-225"
+	stroke="#000000" stroke-width="8px"/>
+<!-- Line -->
+<polyline points=" 6525,900 5625,1800 5850,1800"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,1125 6975,900 7875,1800"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5625,2250 6525,3150 6300,3150"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,3150 7875,2250 7875,2475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,3600 6750,4500 6975,4275"
+	stroke="#000000" stroke-width="8px"/>
+</g>
+</svg>
