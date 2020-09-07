@@ -1,0 +1,222 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2020-07-24 12:25:54 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="635pt" height="571pt"
+	viewBox="-561 2685 10076 9064">
+<g fill="none">
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="2925" fill="#0000ff" font-family="Times" font-style="normal" font-weight="bold" font-size="240" text-anchor="middle">OUT</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="2925" fill="#0000ff" font-family="Times" font-style="normal" font-weight="bold" font-size="240" text-anchor="middle">IN</text>
+<!-- Line -->
+<polyline points=" 5400,3375 4725,3375 4950,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6525,3375 5850,3375 6075,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,6525 6750,5850 6975,6075"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,5400 6750,4725 6975,4950"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,4275 6750,3600 6975,3825"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,3375 7650,3375 7425,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4275,3375 3600,3375 3825,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3150,3375 2475,3375 2700,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,3600 2250,4275 2475,4050"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,4725 2250,5400 2475,5175"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,5850 2250,6525 2475,6300"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2025,3375 1350,3375 1575,3600"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,6975 2250,7650 2475,7425"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,7650 6750,6975 6975,7200"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,7875 5400,7875 5175,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,11250 5400,11250 5175,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,11025 6750,10350 6975,10575"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,9900 6750,9225 6975,9450"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6750,8775 6750,8100 6975,8325"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5850,7875 6525,7875 6300,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,9000 8775,9000 8550,9225"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,11250 7650,11250 7425,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,7875 7650,7875 7425,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5850,11250 6525,11250 6300,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3600,7875 4275,7875 4050,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3600,11250 4275,11250 4050,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,9225 2250,9900 2475,9675"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,10350 2250,11025 2475,10800"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 225,9000 2025,9000 1800,9225"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2250,8100 2250,8775 2475,8550"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,7875 3150,7875 2925,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2025,7875 1350,7875 1575,8100"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2025,11250 1350,11250 1575,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 2475,11250 3150,11250 2925,11475"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 0,4725 0,5400 225,5175"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 0,9225 0,9900 225,9675"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 9000,9225 9000,9900 9225,9675"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 9000,4725 9000,5400 9225,5175"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,4725 8775,4725 8550,4950"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 6975,4275 8775,4275 8550,4500"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 225,4275 2025,4275 1800,4500"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 225,4725 2025,4725 1800,4950"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Text -->
+<g transform="translate(4590,3375) rotate(-90)" >
+<text xml:space="preserve" x="0" y="0" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r61</text>
+</g><!-- Text -->
+<text xml:space="preserve" x="5625" y="3465" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="3480" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="5745" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r56</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="4605" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="7785" y="3495" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="start">C:Ci</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="3465" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="3465" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="5715" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r12</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="6840" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="6840" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<g transform="translate(4620,11250) rotate(-90)" >
+<text xml:space="preserve" x="0" y="0" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r34</text>
+</g><!-- Text -->
+<text xml:space="preserve" x="6750" y="11355" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="7980" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="10245" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r45</text>
+<!-- Text -->
+<text xml:space="preserve" x="6750" y="9105" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="7785" y="11370" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="start">C:SCNai</text>
+<!-- Text -->
+<text xml:space="preserve" x="7785" y="7995" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="start">C:CNai</text>
+<!-- Text -->
+<text xml:space="preserve" x="5625" y="7965" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="5625" y="11340" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="7965" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="11340" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="7965" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="9090" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="10215" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r23</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="11355" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="1215" y="11340" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="end">C:SCNao</text>
+<!-- Text -->
+<text xml:space="preserve" x="1215" y="7965" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="end">C:CNao</text>
+<!-- Text -->
+<g transform="translate(4620,7875) rotate(-90)" >
+<text xml:space="preserve" x="0" y="0" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">Re:r25</text>
+</g><!-- Text -->
+<text xml:space="preserve" x="0" y="4590" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="0" y="5715" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:Nao</text>
+<!-- Text -->
+<text xml:space="preserve" x="0" y="9090" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="0" y="10215" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:So</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="9105" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="10245" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:Si</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="4605" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="9000" y="5745" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:Nai</text>
+<!-- Text -->
+<text xml:space="preserve" x="2250" y="4590" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">1</text>
+<!-- Text -->
+<text xml:space="preserve" x="1215" y="3465" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="end">C:Co</text>
+</g>
+</svg>
