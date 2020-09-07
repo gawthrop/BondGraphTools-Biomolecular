@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2.6a -->
+<!-- CreationDate: 2020-08-04 10:20:06 -->
+<!-- Magnification: 1.05 -->
+<svg	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="285pt" height="371pt"
+	viewBox="2238 -12 4524 5874">
+<g fill="none">
+<!-- Line -->
+<rect x="2250" y="0" width="4500" height="5850" rx="105"
+	stroke="#ffd600" stroke-width="8px"/>
+<!-- Text -->
+<text xml:space="preserve" x="4500" y="4395" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="4500" y="315" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:Ee</text>
+<!-- Text -->
+<text xml:space="preserve" x="4500" y="5715" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">C:Ei</text>
+<!-- Text -->
+<text xml:space="preserve" x="4500" y="1665" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">0</text>
+<!-- Text -->
+<text xml:space="preserve" x="3150" y="3015" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">IonChannel:Na</text>
+<!-- Text -->
+<text xml:space="preserve" x="5850" y="3015" fill="#000000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="216" text-anchor="middle">IonChannel:K</text>
+<!-- Text -->
+<text xml:space="preserve" x="5850" y="3375" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[Ei]</text>
+<!-- Text -->
+<text xml:space="preserve" x="5850" y="2700" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[Ee]</text>
+<!-- Text -->
+<text xml:space="preserve" x="3150" y="2700" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[Ee]</text>
+<!-- Text -->
+<text xml:space="preserve" x="3150" y="3375" fill="#ff0000" font-family="Helvetica" font-style="normal" font-weight="bold" font-size="168" text-anchor="middle">[Ei]</text>
+<!-- Line -->
+<polyline points=" 4500,1350 4500,450 4725,675"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4500,4500 4500,5400 4725,5175"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 3375,2700 4275,1800 4275,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4275,4050 3375,3150 3375,3375"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 5625,2700 4725,1800 4725,2025"
+	stroke="#000000" stroke-width="15px"/>
+<!-- Line -->
+<polyline points=" 4725,4050 5625,3150 5625,3375"
+	stroke="#000000" stroke-width="15px"/>
+</g>
+</svg>
