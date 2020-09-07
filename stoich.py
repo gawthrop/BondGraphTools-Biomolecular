@@ -7,15 +7,21 @@ import scipy.integrate as sci
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import networkx as nx
+import itertools
 import control as con
+
+def F():
+    """ Faraday's constant """
+    F = const.physical_constants['Faraday constant'][0]
+    return F
 
 def V_N(T_cent=37):
     """The V_N constant (=RT/F).
     """
     T = 273.15 + T_cent         # Human temperature deg K
-    F = const.physical_constants['Faraday constant'][0]
+    #F = const.physical_constants['Faraday constant'][0]
     R = const.physical_constants['molar gas constant'][0]
-    V_N = (R*T)/F
+    V_N = (R*T)/F()
     return V_N
 
 def indices(list,element):
@@ -879,11 +885,13 @@ def getStoich(model,linear=[],chemostats=[],quiet=False):
             is_f = (j % 2) ==0
             j_reac = int(j/2);
             if is_f:
-                n = -sp.diff(cr,cv)
+                #n = -sp.diff(cr,cv)
+                n = -cr.coeff(cv)
                 #print(i_species, j_reac, n)
                 Nf[i_species][j_reac] = n
             else:
-                n = -sp.diff(cr,cv)
+                # = -sp.diff(cr,cv)
+                n = -cr.coeff(cv)
                 #print(i_species, j_reac, n)
                 Nr[i_species][j_reac] = n
 
@@ -1035,6 +1043,9 @@ def stoich(model,chemostats=[],linear=[],N=None,K=None,G=None,quiet=False):
     ## Convert to complex form
     Z,D = N2ZD(Nf,Nr)
 
+    ## Number of complexes
+    n_Z = Z.shape[1]
+
     ## Matrices to transform between full state X and reduced state x
     L_xX,L_Xx,G_X,L_dX,i_x = xX(N,G)
     n_x = L_xX.shape[0]
@@ -1055,7 +1066,7 @@ def stoich(model,chemostats=[],linear=[],N=None,K=None,G=None,quiet=False):
              "N":N, "Nf":Nf, "Nr":Nr, "Nfr":Nfr,
              "K":K, "G":G,
              "Z":Z, "D":D,
-             "n_X":n_X, "n_x":n_x, "n_V":n_V,
+             "n_X":n_X, "n_x":n_x, "n_V":n_V, "n_Z":n_Z,
              "i_lin":i_lin, "j_lin":j_lin, "i_x":i_x,
              "S":S,
              "L_xX":L_xX, "L_Xx":L_Xx, "G_X":G_X, "L_dX":L_dX,
@@ -1126,6 +1137,8 @@ def statify(s,chemostats=[],flowstats=[],K=None,G=None):
     sc["G_X"] = G_X
     sc["L_dX"] = L_dX
     sc["Z"] = Z
+    sc["n_Z"] = Z.shape[1]
+       
     sc["D"] = D
     sc["n_x"] = n_x
     sc["i_x"] = i_x
@@ -1272,7 +1285,8 @@ def setParameter(s,parameter=None,X0=None,quiet=False):
     phi0 = np.zeros(n_X)
     if X0 is None:
         X0 = np.ones(n_X)
-    
+    XX0 = copy.copy(X0)
+
     if parameter is not None:
         used = []                         # remember parameters which are used
         par_keys = list(parameter.keys()) # list of keys
@@ -1319,14 +1333,14 @@ def setParameter(s,parameter=None,X0=None,quiet=False):
             if par in par_keys:
                 if not quiet:
                     print("Setting",par, "to", parameter[str(par)])
-                X0[i] = parameter[str(par)]
+                XX0[i] = parameter[str(par)]
                 used.append(str(par))
 
         unused = list(set(par_keys) - set(used))
         if len(unused)>0:
             print('Unused parameters:',unused)
 
-    return K,kappa,phi0,X0
+    return K,kappa,phi0,XX0
 
 def getTrans(longList,shortList):
     """ 
@@ -1337,13 +1351,20 @@ def getTrans(longList,shortList):
     """
     return np.eye(len(longList))[[longList.index(item) for item in shortList]]
 
-def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V'):
+def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V',invar='X'):
     """ Linearise the system about a steady state x_ss
     """
 
+    ## Sanity check
+    valid_invar = ['X','phi']
+    if invar not in valid_invar:
+        print(f'invar {invar} not in {valid_invar}')
+            
+
     ## Set up parameters
-    K,kappa,phi0,x_ss = setParameter(s,parameter=parameter,X0=x_ss,quiet=quiet)
-    
+    K,kappa,phi0,X_ss = setParameter(s,parameter=parameter,X0=x_ss,quiet=quiet)
+    invX_ss = np.diag(1/X_ss)
+
     ## Symbolic derivative of flow with respect to state dv/dx
     dvdx,dvdx0 = dflow(s,sf=sf)
     #print(dv)
@@ -1375,15 +1396,15 @@ def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V')
     #print(arg)
 
 
-    ## Create a numerical function
+    ## Create a numerical function: linearised system X to V
     Cfun = sp.utilities.lambdify(arg,dvdx,"numpy")
 
-    numArgs = tuple(K.flatten().tolist() + kappa.flatten().tolist()  + x_ss.flatten().tolist())
+    numArgs = tuple(K.flatten().tolist() + kappa.flatten().tolist()  + X_ss.flatten().tolist())
     #print(numArgs)
-
-
     C = Cfun(*numArgs)
     #print(C)
+
+    ## Linearised A matrix
     N = s['N']
     A = N@C
     #print(A)
@@ -1425,8 +1446,9 @@ def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V')
         CC = np.eye(n_X)
         n_y = n_X
     elif outvar in ['phi']:     # Species potential
-        print('lin(): outvar',outvar,'is not implemented yet - using X instead')
-        CC = np.eye(n_X)
+        # print('lin(): outvar',outvar,'is not implemented yet - using X instead')
+        # CC = np.eye(n_X)
+        CC = invX_ss
         n_y = n_X
     elif outvar in ['Phi']: # Reaction potential
         CC = -N.T
@@ -1439,11 +1461,15 @@ def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V')
         
         
     ## Create reduced form
+    if invar is 'phi':
+        ## Include the steady-state: dphi/dx = 1/x_ss
+        L_cX = L_cX@np.diag(X_ss)
+    
     a = L_xX@A@L_Xx
-    #print(a)
-    b_c = L_xX@A@G_X@L_cX.T     # Chemostats
     b_f = L_xX@N@L_fX.T         # Flowstats
-    #print(b_f)
+    b_c = L_xX@A@G_X@L_cX.T     # Chemostats
+
+     #print(b_f)
     b = np.hstack((b_c,b_f))
     #print(b)
     c = CC@L_Xx
@@ -1453,11 +1479,13 @@ def lin(s,sc,sf=None,model=None,x_ss=None,parameter=None,quiet=False,outvar='V')
     d = np.hstack((d_c,d_f))
     #print(d)
 
+
     ## Update sc structure
     updates = ["dvdx","dvdx0","A","C","a","b","c","d"]
     for update in updates:
         sc[update] = eval(update)
 
+    ## Return linearised state-space system in control toolbox form 
     return con.ss(a,b,c,d)
 
     
@@ -1520,7 +1548,7 @@ def sim_fun(t,x,s,sc,X0,K,kappa,alpha=1,
     return dx
 
 def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=None,
-        X_chemo=None,V_flow=None,reduced=True,phi0=None,quiet=True):
+        X_chemo=None,V_flow=None,reduced=True,phi0=None,tol = 1e-6,quiet=True):
     
     n_X = s["n_X"]
     n_V = s["n_V"]
@@ -1628,6 +1656,7 @@ def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=
 
             ## Simulate reduced-order system
             x = sci.odeint(sim_fun,x0,t,
+                           atol=tol,rtol=tol,hmax=t[1]-t[0],
                            args=(sf,sc,X0,K,kappa,alpha,reduced,X_chemo,V_flow,phi0,),
                            tfirst=True)
         else:
@@ -1680,6 +1709,16 @@ def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=
         if V0 is not None:
             V += V0
 
+    ## Compute dX = NV
+    dX = (s['N']@V.T).T
+    dXc = (sc['N']@V.T).T
+
+    ## Compute power dissipated in each Re component
+    P_Re = Phi*V
+
+    ## Compute the power associated with Cs
+    P_C = phi*dX
+    
     ## Results
     res = {};
     res['t'] = t
@@ -1688,15 +1727,20 @@ def sim(s,sc=None,sf=None,X0=None,t=None,linear=False,V0=None,alpha=1,parameter=
     res['V'] = V
     res['phi'] = phi
     res['Phi'] = Phi
-    
+    res['dX'] = dX
+    res['dXc'] = dXc
+    res['P_Re'] = P_Re
+    res['P_C'] = P_C
     return res
 
-def plot(s,res,plotPhi=False,x_ss=None,v_ss=None,species=None,reaction=None,x=None,xlabel=None,xlim=None,ylim=None,i0=None,filename=None):
+def plot(s,res,plotPhi=False,plotPower=False,x_ss=None,v_ss=None,dX=False,species=None,reaction=None,x=None,xlabel=None,xlim=None,ylim=None,i0=None,filename=None):
     """ Plot results of sim()
     
     Parameter:
     s : stoichiometric information from stoich()
     res : results from sim()
+    x_ss,v_ss : steady state state and flow to be subtracted
+    dX: set to True to plot dX/dt=NV in place of X
     species : list of species to plot (default all)
     reaction : list of reactions to plot (default all)
     x : optional alternative x axis (1D array)
@@ -1709,8 +1753,15 @@ def plot(s,res,plotPhi=False,x_ss=None,v_ss=None,species=None,reaction=None,x=No
     if plotPhi:
         specSym = 'phi'
         reacSym = 'Phi'
+    elif plotPower:
+        specSym = 'P_C'
+        reacSym = 'P_Re'
     else:
-        specSym = 'X'
+        if dX:
+            specSym = 'dX'
+        else:
+            specSym = 'X'
+            
         reacSym = 'V'
 
     if i0 is None:
@@ -1734,7 +1785,7 @@ def plot(s,res,plotPhi=False,x_ss=None,v_ss=None,species=None,reaction=None,x=No
         X = copy.copy(res[specSym][-i1:,I])
         if x_ss is not None:
             X = X - x_ss[I]
-            specSym = '$X-X_ss$'
+            specSym = '$X-X_{ss}$'
             
         Species = [s["species"][i] for i in I]   
 
@@ -1778,27 +1829,19 @@ def plot(s,res,plotPhi=False,x_ss=None,v_ss=None,species=None,reaction=None,x=No
         plt.ylabel(reacSym)
         plt.legend(Reaction)
 
-    if filename==None:
-        plt.show()
-    else:
+    if filename is not None:
         plt.savefig(filename)
-        #plt.show()
-
+        
+    plt.show()
     plt.close()
 
-def draw(s):
-    """ Draw the digraph of the system
-    See P. Gawthrop and E. J. Crampin. 
-    Bond graph representation of chemical reaction networks. 
-    IEEE Transactions on NanoBioscience, 17(4):1--7, October 2018. 
-    Available at arXiv:1809.00449.
-    """
+def DtoGraph(s,directed=False):
+    """ Create digraph from D matrix embedded in s """
 
     ## Create list of complexes (nodes)
     comp = prodStoichName(s["Z"].T,s["species"])
-    #print(comp)
-
-    ## Create list of edges
+    print(f'Complexes: {comp}')
+    
     D = s["D"]
     nPath = D.shape[1]
     edges = []
@@ -1809,12 +1852,67 @@ def draw(s):
             edge = (comp[i_in],comp[i_out])
             edges.append(edge)
 
-    #print(edges)
-
-    ## Create digraph G
-    G = nx.DiGraph()
+    ## Create graph G
+    if directed:
+        G = nx.DiGraph()
+    else:
+        G = nx.Graph()
     G.add_nodes_from(comp)
     G.add_edges_from(edges)
+
+    return G
+
+def linkage(s):
+    """ Linkage classes of network """
+    
+    G = DtoGraph(s,directed=False)
+    all_connected_subgraphs = []
+
+    # here we ask for all connected subgraphs that have at least 2 nodes AND have less nodes than the input graph
+    for nb_nodes in range(2, G.number_of_nodes()):
+        for SG in (G.subgraph(selected_nodes) for selected_nodes in itertools.combinations(G, nb_nodes)):
+            if nx.is_connected(SG):
+                #print(SG.nodes)
+                all_connected_subgraphs.append(SG)
+
+    ## Remove subgraphs larger ones
+    linkage_classes = copy.copy(all_connected_subgraphs)
+    for subgraph1 in all_connected_subgraphs:
+        nodes1 = subgraph1.nodes
+        for subgraph2 in all_connected_subgraphs:
+            nodes2 = subgraph2.nodes
+            if len(nodes2)<len(nodes1):
+                if set(nodes2).issubset(set(nodes1)):
+                    #print(nodes1,nodes2)
+                    if subgraph2 in linkage_classes:
+                        linkage_classes.remove(subgraph2)
+
+    for lclass in linkage_classes:
+        print(lclass.nodes)
+        
+    l = len(linkage_classes)
+    print(f'{l} linkage classes')
+    return l
+
+def deficiency(s):
+    """ """
+    r = np.linalg.matrix_rank(s['N'])
+    n = s['n_Z']
+    l = linkage(s)
+    d = n-l-r
+    print(f'deficiency = {d} ({n}-{l}-{r})')
+
+def draw(s):
+    """ Draw the digraph of the system
+    See P. Gawthrop and E. J. Crampin. 
+    Bond graph representation of chemical reaction networks. 
+    IEEE Transactions on NanoBioscience, 17(4):1--7, October 2018. 
+    Available at arXiv:1809.00449.
+    """
+
+    G = DtoGraph(s,directed=True)
+
+    ## Count cycles
     cycles = len(list(nx.simple_cycles(G)))
     if cycles==1:
         Cycles = " cycle"
