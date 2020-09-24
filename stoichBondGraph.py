@@ -3,7 +3,7 @@ import BondGraphTools as bgt
 import numpy as np
 import datetime
 
-def model(s):
+def model(s,filename=None):
     """ Converts a stoichiometric matrix  to the BondGraphTools bond graph representation
     """
 
@@ -144,8 +144,12 @@ def model(s):
     ## print(connectStr)
 
     ## Print to file
-    filename = name+".py"
-    f = open(filename,'w')
+    if filename is None:
+        Filename = name+".py"
+    else:
+        Filename = filename+".py"
+        
+    f = open(Filename,'w')
     f.write(head)
     f.write(specStr)
     f.write(reacStr)
