@@ -33,6 +33,7 @@ Electrochemical Modelling and Ion Channels
 - [Redox](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/Redox.ipynb): 
 Redox reactions and Proton Pumps
 - [SGLT](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/SGLT.ipynb): Sodium Glucose Symporter
+- [MWC](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/MWC.ipynb): Monod-Wyman-Changeux Model
 
 ## In progress
 - [fECR](https://nbviewer.jupyter.org/github/gawthrop/BondGraphTools-Biomolecular/tree/master/fECR.ipynb): Enzyme-catalysed reaction: analysis as a feedback control actuator.
